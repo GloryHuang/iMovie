@@ -1,0 +1,63 @@
+.hot {
+  margin: 10rpx;
+  background: #fff;
+}
+
+.hot-title {
+  font-size: 35rpx;
+  color: rgb(228, 90, 90);
+  padding: 10rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+
+.hot .hot-item {
+  border-bottom: 1rpx solid #ccc;
+  /* margin-top: 10rpx; */
+  padding: 10rpx 10rpx;
+  display: flex;
+  overflow: hidden;
+}
+
+/* .hot-item .photo image {
+  padding: 0 10rpx;
+} */
+
+.hot .hot-item:last-child {
+  border-bottom: 0;
+}
+
+.hot .hot-item image {
+  width: 135rpx;
+  height: 185rpx;
+}
+
+.hot .movie-info {
+  flex: 1;
+  padding: 0 20rpx;
+  overflow: hidden;
+}
+
+.movie-info .movie-title {
+  color: #d81e06;
+  font-size: 34rpx;
+  margin-top: -5rpx;
+  /* font-weight: 700; */
+}
+
+.movie-avatars, .movie-genres, .movie-year {
+  font-size: 25rpx;
+  padding-top: 10rpx;
+}
+
+.movie-info .movie-avatars {
+}
+
+.movie-info text {
+  display: block;
+}
+
+.line-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

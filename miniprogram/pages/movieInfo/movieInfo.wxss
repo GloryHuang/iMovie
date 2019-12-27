@@ -1,0 +1,212 @@
+/* pages/movieInfo/movieInfo.wxss */
+@import '../../template/rating/rating.wxss';
+
+page {
+  background: #f4f4f4;
+}
+
+.movie-detail {
+  height: 100%;
+  position: relative;
+}
+
+.movie-filter {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+}
+
+.detail-container {
+  display: flex;
+  /* height: 400rpx; */
+  padding: 30rpx;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+
+.detail-container .detail-header {
+  display: flex;
+}
+
+.detail-mask {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  position: absolute;
+  -webkit-filter: blur(1.2rem);
+  filter: blur(1.2rem);
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.55;
+}
+
+.detail-img image {
+  /* width: 110px;
+  height: 150px; *//* width: 180rpx; *//* height: 270rpx; *//* height: 100%; */
+  width: 220rpx;
+  height: 300rpx;
+}
+
+.detail-des {
+  /* flex: 1; */
+  margin-left: 30rpx;
+  /* margin-top: -10rpx; */
+}
+
+.detail-des .title {
+  font-size: 30rpx;
+  color: #f7ffff;
+  margin-top: 10rpx;
+  /* margin-top: 20rpx; */
+}
+
+.detail-des .title-name {
+  /* font-size: 20rpx; */
+  font-size: 24rpx;
+  color: #f7ffff;
+  padding-top: 4rpx;
+}
+
+.detail-des .score {
+  font-size: 30rpx;
+  padding: 15rpx 0;
+  color: #ffac2d;
+}
+
+.rating-orange {
+  color: #ffac2d;
+}
+
+.ftstyle {
+  color: #a9acb6;
+  font-size: 24rpx;
+  margin-bottom: 6rpx;
+}
+
+.detail-des view {
+  /* margin-bottom: 5rpx; */
+}
+
+.collection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 55rpx;
+  /* background-color: rgba(128, 128, 128, 0.3); */
+  background-color: hsla(0, 0%, 100%, 0.35);
+  border-radius: 6rpx;
+  margin-right: 15rpx;
+}
+
+.collection image {
+  /* width: 40rpx;
+  height: 40rpx; */
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 5rpx;
+}
+
+.movie-content {
+  padding: 20rpx;
+  border: 1rpx solid #eee;
+  background-color: white;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.long-des {
+  display: -webkit-box; /* 定义为自适应布局 */
+  word-break: break-all; /* 换行模式 */
+  text-overflow: ellipsis; /* 超出文字用省略号代替 */
+  overflow: hidden; /* 多出部分隐藏 */
+  -webkit-box-orient: vertical; /* 竖直方向的超出和隐藏 */
+  -webkit-line-clamp: 4; /* 设定行数为4 */
+}
+
+.long-des .des {
+  font-size: 28rpx;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: -webkit-box;
+}
+
+.arrow {
+  height: 30rpx;
+}
+
+.arrow image {
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.avatar {
+  width: 100%;
+  margin: 15rpx 0;
+  background-color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+}
+
+.avatar .title {
+  font-size: 35rpx;
+  background-color: #fff;
+  padding: 10rpx 0;
+}
+
+.avatar .position {
+  font-size: 24rpx;
+  padding: 5rpx;
+}
+
+.directors, .scroll-item {
+  display: inline-block;
+  padding-right: 5rpx;
+  width: 210rpx;
+}
+
+.directors image, .scroll-item image {
+  /* width: 110px; */
+  width: 100%;
+  height: 150px;
+}
+
+.directors text, .scroll-item text {
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 30rpx;
+}
+
+.comment {
+  margin-top: 15rpx;
+  height: 600rpx;
+  border: 1rpx solid gold;
+  background-color: #fff;
+}
+
+.btnGroup {
+  display: flex;
+  margin-top: 10rpx;
+  color: #fff;
+  font-size: 28rpx;
+}
+
+.btnGroup .cmt_select {
+  color: #ffac2d;
+}

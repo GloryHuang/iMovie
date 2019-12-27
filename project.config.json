@@ -1,0 +1,158 @@
+{
+	"miniprogramRoot": "miniprogram/",
+	"cloudfunctionRoot": "cloudfunctions/",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": false,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"appid": "wxb6d80a7e1b3c8012",
+	"projectname": "iMovie",
+	"libVersion": "2.8.2",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "db guide",
+					"pathName": "pages/databaseGuide/databaseGuide",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "pages/movieInfo/movieInfo",
+					"pathName": "pages/movieInfo/movieInfo",
+					"query": "id=34452908",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/movieInfo/movieInfo",
+					"pathName": "pages/movieInfo/movieInfo",
+					"query": "id=30299356",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "components/comments/comments",
+					"pathName": "components/comments/comments",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "pages/commentsList/commentsList",
+					"pathName": "pages/commentsList/commentsList",
+					"query": "id=34452908&count=38",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "rating",
+					"pathName": "components/rating/rating",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "components/rating/rating",
+					"pathName": "template/rating/rating",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "components/preview/preview",
+					"pathName": "components/preview/preview",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "pages/previewList/previewList",
+					"pathName": "pages/previewList/previewList",
+					"query": "id=30299356",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/photosList/photosList",
+					"pathName": "pages/photosList/photosList",
+					"query": "id=30299356",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/photosList/photosList",
+					"pathName": "pages/photosList/photosList",
+					"query": "id=25779217",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/userConsole/userConsole",
+					"pathName": "pages/userConsole/userConsole",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myCollect/myCollect",
+					"pathName": "pages/myCollect/myCollect",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/rating/rating",
+					"pathName": "pages/rating/rating",
+					"query": "id=34452908",
+					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "pages/movieInfo/movieInfo",
+					"pathName": "pages/movieInfo/movieInfo",
+					"query": "id=27624663",
+					"scene": null
+				}
+			]
+		}
+	}
+}

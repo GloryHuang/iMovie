@@ -1,0 +1,10 @@
+<view wx:if="{{collectList.length>0}}">
+  <list movieList="{{collectList}}"></list>
+</view>
+
+<block wx:else>
+  <view class="noCollect">
+    <image src="../../images/nodata.png"></image>
+    <text>暂无想看的电影</text>
+  </view>
+</block>

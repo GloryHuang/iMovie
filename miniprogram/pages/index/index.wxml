@@ -1,0 +1,10 @@
+<!-- index.wxml -->
+<view class="container">
+  <view class="tab_bar">
+    <block wx:for="{{nav}}" wx:key="name">
+      <text class="hot-item {{currentType==item.type? 'tab_active':''}}" data-type="{{item.type}}" bindtap="switchTab">{{item.title}}</text>
+    </block>
+  </view>
+
+  <movie-list title="{{title}}" movieList="{{movieList}}"></movie-list>
+</view>

@@ -1,0 +1,54 @@
+page {
+  background: #f5f5f5;
+  /* background: #f4f4f4; */
+}
+
+.userInfo {
+  width: 750rpx;
+  display: flex;
+  height: 300rpx;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background-color:#F5DEB3;
+}
+
+.userInfo .user_image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.userInfo .user_name {
+  margin-top: 15rpx;
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+}
+
+.menuList .menuItem {
+  padding: 20rpx;
+  border: 1rpx solid rgb(222, 222, 222);
+  border-left: none;
+  border-right: none;
+  background: #fff;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menuList .menuItem  image {
+  width: 25rpx;
+  height: 25rpx;
+}
+
+.myCollect {
+  margin: 20rpx 0;
+}

@@ -1,0 +1,25 @@
+<view class="scroll-container">
+  <view class="title">
+    <text>视频/剧照</text>
+    <navigator url="../../pages/photosList/photosList?id={{movieInfo.id}}">
+     <image src="../../images/expand.png"></image>
+    </navigator>
+  </view>
+  <scroll-view scroll-x="true" class="scrollView">
+    <block wx:if="{{movieInfo.trailers.length}}">
+      <navigator url="../../pages/previewList/previewList?id={{movieInfo.id}}" hover-class="none" style="display:inline-block">
+        <view class="scroll_item video" style="background-image: url({{movieInfo.trailers[0].medium}})">
+          <view class="play">
+            <image src="https://img3.doubanio.com/f/talion/68ff8e81492ad5ad72e57ceede8830f346dda183/pics/card/movie_play_btn.svg"></image>
+          </view>
+
+          <view class="time">02:30</view>
+        </view>
+      </navigator>
+    </block>
+    <view class="scroll_item" wx:for="{{movieInfo.photos}}" wx:key="id">
+      <image src="{{item.thumb}}" mode="aspectFill" bindtap="previewImage" data-index="{{index}}"></image>
+    </view>
+
+  </scroll-view>
+</view>

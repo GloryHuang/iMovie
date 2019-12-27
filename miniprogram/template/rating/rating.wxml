@@ -1,0 +1,17 @@
+<template name="rating-template">
+  <block wx:if="{{rating}}">
+    <block wx:if="{{showRating}}">
+      <view class="rating">
+        <view class="rating-star allstar{{rating*2}}"></view>
+        <text class="rating-average"></text>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="rating">
+        <view class="rating-star allstar{{rating}}"></view>
+        <text class="rating-orange">{{rating}}</text>
+      </view>
+    </block>
+  </block>
+</template>

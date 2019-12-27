@@ -1,0 +1,24 @@
+<wxs src="../../utils/tools.wxs"  module="utils"> </wxs>
+<view class="hot">
+  <navigator url="../../pages/movieInfo/movieInfo?id={{item.id}}" hover-class="none" class="hot-item" wx:for="{{movieList}}" wx:key="id">
+    <view class="photo">
+      <image src="{{item.images.small}}"></image>
+    </view>
+    <view class="movie-info line-ellipsis">
+      <view class="movie-title">
+        <text class="line-ellipsis">{{item.title}}</text>
+      </view>
+      <view class="movie-genres">
+        <text class="line-ellipsis">{{item.genres}}</text>
+      </view>
+      <view class="movie-avatars">
+      <!-- casts.name -->
+        <!-- <text class="line-ellipsis"><block wx:for="{{item.casts}}"  wx:for-item="casts" wx:key="id">{{utils.castsHandle(casts.name)}}</block></text> -->
+        <text class="line-ellipsis">{{utils.castsHandle(item.casts)}}</text>
+      </view>
+      <view class="movie-year" wx:if="{{item.mainland_pubdate}}">
+        <text>上映时间: {{item.mainland_pubdate}}</text>
+      </view>
+    </view>
+  </navigator>
+</view>

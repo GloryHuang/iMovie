@@ -1,0 +1,36 @@
+<!--miniprogram/pages/previewList/previewList.wxml-->
+<view class="preview-container">
+  <view class="trailers">
+    <!-- <video id="trailers" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"
+      show-center-play-btn="{{false}}" object-fit="cover"></video> -->
+    <video wx:if="{{videosrc}}" id="trailers" src="{{videosrc}}" show-center-play-btn="{{false}}" object-fit="cover" autoplay="{{true}}"></video>
+  </view>
+
+  <view class="content">
+    <view class="title">{{title}}</view>
+    <view class="rating">豆瓣评分 {{movieInfo.rating.average}}</view>
+    <view class="time">{{movieInfo.pubdates[1]}}</view>
+  </view>
+
+  <view class="videosList">
+    <scroll-view scroll-y="{{true}}" class="scrollView">
+      <block wx:for="{{movieInfo.trailers}}" wx:key="id" wx:for-index="index">
+        <view class="scroll_item {{index==selectIndex?'selected':''}} " bindtap="selected" data-index="{{index}}">
+          <!--http://img3.doubanio.com/img/trailer/medium/2569186100.jpg?1569221685  -->
+          <!-- http://img3.doubanio.com/img/trailer/small/2569186100.jpg?1569221685 -->
+          <view class="scroll_item video" style="background-image: url({{item.medium}})">
+            <view class="play">
+              <image src="https://img3.doubanio.com/f/talion/68ff8e81492ad5ad72e57ceede8830f346dda183/pics/card/movie_play_btn.svg"></image>
+            </view>
+            <view class="time">02:30</view>
+          </view>
+
+          <view class="title">
+            <text>{{item.title}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+</view>

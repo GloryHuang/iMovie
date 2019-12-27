@@ -1,0 +1,19 @@
+/**index.wxss**/
+.tab_bar{
+  display: flex;
+  /* justify-content: center; */
+  /* justify-content:space-around; */
+  text-align: center;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+.tab_bar .hot-item{
+    color: #666;
+    font-size: 15px;
+    padding: 20rpx;
+    font-weight: 700;
+    flex: 1;
+}
+.hot-item.tab_active{
+  color: #ef4238;
+  border-bottom: 2px solid #ef4238;
+}

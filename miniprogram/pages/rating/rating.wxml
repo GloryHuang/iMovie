@@ -1,0 +1,22 @@
+<view class="container">
+  <block wx:if="{{rating}}">
+    <view class="rat-score">
+      <text class="score">{{rating*2}}</text>
+      <text class="part">分</text>
+      <view class="scoreTitle">{{scoreTitle}}</view>
+    </view>
+  </block>
+  <view wx:else class="rat-score">请点击评分</view>
+  <view class="rat-container">
+    <block wx:for="{{[0,1,2,3,4]}}" wx:key="item">
+      <image class="star-image" src="{{rating>item?(rating-item==0.5 ? halfSrc:selectedSrc):normalSrc}}">
+        <view class="item star-left" data-score="{{item+0.5}}" bindtap="tapLeftStar"></view>
+        <view class="item star-right" data-score="{{item+1}}" bindtap="tapRightStar"></view>
+      </image>
+    </block>
+  </view>
+  <view class="rat-textarea">
+    <textarea placeholder="说说你看过之后的感受..." bindinput="getContent"></textarea>
+  </view>
+  <button class="submit" bindtap="submitScore" data-score="{{rating*2+'分'}}" data-scoreTitle="{{scoreTitle}}">提交</button>
+</view>

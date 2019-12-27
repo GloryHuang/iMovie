@@ -1,0 +1,3 @@
+<!--miniprogram/pages/comments/comments.wxml-->
+
+<comments comtlist="{{comtlist}}" show_count="{{false}}" hasMore="{{hasMore}}"></comments>

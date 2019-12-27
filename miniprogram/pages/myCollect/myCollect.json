@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "我的想看",
+  "enablePullDownRefresh": true,
+  "navigationBarBackgroundColor": "#fff",
+  "usingComponents": {
+    "list": "/components/movieList/movieList"
+  }
+}

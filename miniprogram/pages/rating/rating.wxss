@@ -1,0 +1,75 @@
+/* miniprogram/pages/rating/rating.wxss */
+
+page {
+  /* height: 100%; */
+}
+
+.container {
+}
+
+.rat-score {
+  text-align: center;
+  padding: 50rpx 0;
+  color: #fbc61e;
+}
+
+.rat-score .score {
+  font-size: 70rpx;
+}
+
+.rat-score .part{
+  margin-left: 10rpx;
+  font-size: 30rpx;
+}
+.rat-score .scoreTitle{
+  font-size: 25rpx;
+}
+.rat-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rat-container .star-image {
+  position: relative;
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.item {
+  position: absolute;
+  top: 0;
+  width: 35rpx;
+  height: 100rpx;
+}
+
+.star-left {
+  left: 0;
+}
+
+.star-right {
+  right: 0;
+}
+
+.rat-textarea {
+  display: flex;
+  margin: 30rpx;
+}
+
+.rat-textarea textarea {
+  display: block;
+  width: 100%;
+  height: 200rpx;
+  font-size: 28rpx;
+  color: #4a4a4a;
+  padding: 20rpx;
+  border: 1rpx solid #d8d8d8;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+}
+
+.submit {
+  margin: 30rpx;
+  background-color: #fbc61e;
+  color: #fff;
+}

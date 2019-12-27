@@ -1,0 +1,89 @@
+<import src="../../template/rating/rating.wxml" />
+
+<view hidden="{{loading}}">
+  <view class="movie-detail">
+    <view class="movie-filter"></view>
+    <view class="detail-mask" style='background: url({{movieInfo.images.large}})'></view>
+    <view class="detail-container">
+      <view class="detail-header">
+        <view class="detail-img">
+          <image src="{{movieInfo.images.small}}"></image>
+        </view>
+        <view class="detail-des">
+          <view class="title">{{movieInfo.title}}</view>
+          <view class="title-name">{{movieInfo.aka[2]}}</view>
+          <view class="score" wx:if="{{movieInfo.rating.average!=0}}">
+            <!-- {{movieInfo.rating.average}} -->
+            <template is="rating-template" data="{{showRating:false,rating:movieInfo.rating.average}}" />
+          </view>
+          <view class="score " wx:else>{{movieInfo.wish_count}} 人想看</view>
+          <view class="type ftstyle">
+            <block wx:for="{{movieInfo.genres}}" wx:key="id">{{item}} </block>
+          </view>
+          <view class="src ftstyle">{{countryTime}}</view>
+          <view class="pubDesc ftstyle">{{movieInfo.pubdate}}</view>
+
+        </view>
+      </view>
+
+      <view class="btnGroup">
+        <view class="collection" bindtap="collectHandle" data-collect="{{movieInfo}}">
+          <image src="{{has_collect ?'../../images/collect-active.png':'../../images/collect.png'}}"></image>
+          <text>想看</text>
+        </view>
+        <view class="collection" bindtap="ratingHandle" data-collect="{{movieInfo}}">
+          <image src="{{has_rating ?'../../images/rating-active.png':'../../images/rating.png'}}"></image>
+          <block wx:if="{{score==''}}">
+            <text>评论</text>
+          </block>
+
+          <text wx:else class="cmt_select">{{score.score}},{{score.scoretitle}}</text>
+        </view>
+      </view>
+
+    </view>
+  </view>
+  <view class="movie-content ">
+    <view class='long-des {{isFold? "hide":"show"}}' style="-webkit-line-clamp: {{lineNum}}">
+      <text class="des">{{movieInfo.summary}}</text>
+    </view>
+    <!-- <image src="{{isFold:}}" bindtap="showAll">∧</image> -->
+    <view wx:if="{{showTotalBtn}}" bindtap="showAll" class="arrow">
+      <image src="{{isFold? '../../images/down.png':'../../images/up.png'}}"></image>
+    </view>
+  </view>
+  <view class="avatar">
+    <view class="title">
+      <text>影人</text>
+    </view>
+    <scroll-view scroll-x="true">
+      <view class="directors">
+        <image src="{{movieInfo.directors[0].avatars.small}}" mode="widthFix"></image>
+        <text>{{movieInfo.directors[0].name}}</text>
+        <text class="position">{{director}}</text>
+      </view>
+      <!-- <scroll-view scroll-x="true" style=" white-space: nowrap;"> -->
+      <view class="scroll-item" wx:for="{{movieInfo.casts}}" wx:key="id">
+        <image src="{{item.avatars.small}}" mode="widthFix"></image>
+        <text>{{item.name}}</text>
+        <block wx:if="{{movieInfo.genres!='动画'}}">
+          <text class="position">演员</text>
+        </block>
+        <text wx:else> <text class="position">配音</text></text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- <template is="preview-template" data="{{movieInfo:movieInfo}}" /> -->
+
+
+  <preview movieInfo="{{movieInfo}}"></preview>
+
+  <comments comtTitle="{{comtTitle}}" comtid="{{movieInfo.id}}" comtlist="{{movieInfo.popular_comments}}" comments_count="{{movieInfo.comments_count}}" show_count="{{true}}" hasMore="{{false}}"></comments>
+
+
+</view>
+
+<view hidden="{{!loading}}">
+
+</view>

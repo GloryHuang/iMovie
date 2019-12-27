@@ -1,0 +1,7 @@
+<!--miniprogram/template/loading/loading.wxml-->
+<template name="loading-template">
+  <block wx:if="{{hasMore}}">
+    <view class="loadmore loading">正在加载...</view>
+  </block>
+  <view wx:else class="loadmore">没有更多内容了</view>
+</template>

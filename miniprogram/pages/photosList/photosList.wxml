@@ -1,0 +1,9 @@
+<import src="../../template/loading/loading.wxml" />
+
+  <view class="container">
+    <view class="item" wx:for="{{photoslist}}" wx:key="name">
+      <image src="{{item.thumb}}" mode="aspectFill" bindtap="previewImage" data-index="{{index}}"></image>
+    </view>
+  </view>
+
+  <template  is="loading-template" data="{{hasMore:hasMore}}"/>

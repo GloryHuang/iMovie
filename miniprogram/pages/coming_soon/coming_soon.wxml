@@ -1,0 +1,3 @@
+<!--pages/coming_soon/coming_soon.wxml-->
+
+<movie-list title="{{title}}" movieList="{{movieList}}"></movie-list>

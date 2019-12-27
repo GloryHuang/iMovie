@@ -1,0 +1,111 @@
+page {
+  background: #f5f5f5;
+}
+
+.preview-container {
+  position: relative;
+  padding-top: 225px;
+}
+
+.trailers {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+
+.trailers #trailers {
+  width: 100%;
+}
+
+.content {
+  background: #fff;
+  padding: 10rpx;
+}
+
+.content view {
+  padding: 5rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.content .title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #000;
+}
+
+.videosList {
+  width: 100%;
+  margin-top: 10rpx;
+  /* position: absolute;
+  top: 225px; */
+  background-color: #fff;
+}
+
+.scrollView {
+  width: 100%;
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+
+.scroll_item {
+  padding: 20rpx 5rpx;
+  /* height: 100px; */
+  display: flex;
+  border-top: 1rpx solid #ccc;
+}
+
+.scroll_item .title {
+  flex: 1;
+  padding: 0 20rpx;
+  font-size: 30rpx;
+
+}
+
+.scroll_item.video {
+  position: relative;
+  /* height: 100px;
+  width: 160px; *//* width: 120px;
+  height: 75px; */
+  width: 140px;
+  height: 78px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.scroll_item.video .play {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+}
+
+.scroll_item.video image {
+  width: 34px;
+  height: 34px;
+  /* display: inline-block; */
+  transform: translate(-50%, -50%);
+}
+
+.scroll_item.video .time {
+  color: #fff;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 11px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2px 4px;
+}
+
+.scroll_item image {
+  width: 150px;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.selected {
+  color: #f03d37;
+}

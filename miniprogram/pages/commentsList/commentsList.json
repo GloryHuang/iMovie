@@ -1,0 +1,8 @@
+{ 
+  "navigationBarBackgroundColor": "#f03d37",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "comments": "/components/comments/comments"
+  }
+}
