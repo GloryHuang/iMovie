@@ -10,13 +10,16 @@ function castsHandle(castlist) {
 
 
 function dateFormat(dateTime) {
-  var oldDate = getDate(dateTime)
-  var y = oldDate.getFullYear(),
-    m = oldDate.getMonth() + 1,
-    d = oldDate.getDate();
-  var newDate = y + '-' + m + '-' + d
+
   var regExp = getRegExp('-', 'g')
   var date = dateTime.replace(regExp, '/')
+
+  var oldDate = getDate(date)
+  var y = oldDate.getFullYear();
+  var m = oldDate.getMonth() + 1;
+  var d = oldDate.getDate();
+  var newDate = y + '-' + m + '-' + d
+
   var dateTimeStamp = getDate(date).getTime();
   var result = '';
   var minute = 1000 * 60;
@@ -39,7 +42,8 @@ function dateFormat(dateTime) {
   if (yearEnd >= 1) {
     result = newDate;
   } else if (monthEnd >= 1) {
-    result = "" + parseInt(monthEnd) + "月前";
+    // result = "" + parseInt(monthEnd) + "月前";
+    result = newDate;
   } else if (weekEnd >= 1) {
     result = "" + parseInt(weekEnd) + "周前";
   } else if (dayEnd >= 1) {

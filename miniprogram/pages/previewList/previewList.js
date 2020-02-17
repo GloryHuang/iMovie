@@ -16,9 +16,9 @@ Page({
     })
     wx.cloud.callFunction({
       // name: 'getMovieInfo',
-      name:'API',
+      name: 'API',
       data: {
-        type:'getMovieInfo',
+        type: 'getMovieInfo',
         id: num
       }
     }).then(res => {
@@ -59,6 +59,7 @@ Page({
    */
   onLoad: function(options) {
     this.getMovieInfo(options.id)
+    this.videometa()
   },
 
   /**
@@ -108,5 +109,10 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  videometa(e) {
+    console.log('信息~~~~~~~~')
+    console.log(e)
+    console.log('信息~~~~~~~~')
   }
 })
