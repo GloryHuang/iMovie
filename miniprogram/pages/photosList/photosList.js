@@ -24,7 +24,6 @@ Page({
   getPhotos(id) {
 
     wx.cloud.callFunction({
-      // name: 'getPhotos',
       name:'API',
       data: {
         type:'getPhotos',
@@ -33,14 +32,11 @@ Page({
         count: 24
       }
     }).then(res => {
-      console.log(res.result);
+
       var list = res.result.photos
-      // let photoNum = res.result.total
       let photoNum = 45
       let hasMore = this.data.photoslist.length <= photoNum
-      // console.log(this.data.photoslist.length, photoNum)
-      // console.log(list,'list')
-      // console.log(hasMore)
+
       this.setData({
         photoslist: this.data.photoslist.concat(list),
         photoNum: photoNum,

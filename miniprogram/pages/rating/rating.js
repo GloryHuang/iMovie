@@ -25,7 +25,7 @@ Page({
     if (this.data.rating == 0.5 && e.currentTarget.dataset.score == 0.5) {
       score = 0.5
     }
-    // let scoreTitle = switchDescript(score)
+
     this.setData({
       rating: score,
       scoreTitle: this.switchDescript(score)
@@ -65,11 +65,11 @@ Page({
     })
   },
   submitScore(e) {
-    console.log()
+ 
     let scoreDetail = e.currentTarget.dataset
-    console.log(scoreDetail.score)
+
     if (scoreDetail.score != "0分") {
-      // console.log('1')
+    
       wx.cloud.callFunction({
         name: 'JDBC',
         data: {
@@ -118,7 +118,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
+  
     this.setData({
       movieId: options.id,
       title: options.title,

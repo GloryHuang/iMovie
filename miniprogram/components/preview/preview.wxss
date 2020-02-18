@@ -24,7 +24,6 @@
 .scroll_item {
   display: inline-block;
   padding: 0 5rpx;
-  /* height: 100px; */
   height: 200rpx;
   overflow: hidden;
 }
@@ -63,11 +62,8 @@
 }
 
 .scroll_item.video image {
-  /* width: 34px;
-  height: 34px; */
   width: 68rpx;
   height: 68rpx;
-  /* display: inline-block; */
   transform: translate(-50%, -50%);
 }
 
@@ -82,7 +78,6 @@
 }
 
 .scroll_item image {
-  /* width: 150px; */
   width: 300rpx;
   height: 100%;
   border-radius: 4px;

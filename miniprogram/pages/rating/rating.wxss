@@ -1,11 +1,8 @@
 /* miniprogram/pages/rating/rating.wxss */
 
-page {
-  /* height: 100%; */
-}
 
-.container {
-}
+
+
 
 .rat-score {
   text-align: center;

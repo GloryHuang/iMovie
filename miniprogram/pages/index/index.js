@@ -31,8 +31,6 @@ Page({
     })
 
     wx.cloud.callFunction({
-      // name: 'getHotMovie',
-      // name: reqType,
       name: 'API',
       data: {
         type: reqType,
@@ -41,18 +39,15 @@ Page({
       }
     }).then(res => {
       var data = res.result
-      // console.log(data,'data')
       var movielist = data.subjects
       var title = data.title.slice(0, 4)
-      // console.log(movielist)
-
 
       this.setData({
         movieList: this.data.movieList.concat(movielist),
         title: title
       });
       wx.stopPullDownRefresh()
-      console.log(this.data.movieList)
+
       wx.hideLoading()
     }).catch(err => {
       console.log(err)
@@ -120,7 +115,6 @@ Page({
       title: ''
 
     })
-    // this.getMovie();
     this.onLoad();
   },
 

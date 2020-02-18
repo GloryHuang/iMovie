@@ -21,7 +21,6 @@
 .comments image {
   width: 70rpx;
   height: 70rpx;
-  /* border: 1rpx solid red; */
   border-radius: 50%;
 }
 
@@ -30,7 +29,6 @@
 }
 
 .cmt_info {
-  /* display: inline-block; */
   margin-left: 15rpx;
 }
 

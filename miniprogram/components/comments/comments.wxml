@@ -11,7 +11,6 @@
         <image src="{{item.author.avatar}}"></image>
         <view class="cmt_info">
           <text class="cmt_user">{{item.author.name}}</text>
-          <!-- <text class="cmt_rating">{{item.rating.value}}</text> -->
           <template is="rating-template" data="{{showRating:true,rating:item.rating.value}}" />
         </view>
       </view>
@@ -29,19 +28,10 @@
       </navigator>
     </block>
 
-    <!-- <block wx:else>
-      <block wx:if="{{hasMore}}">
-        <view class="loadmore loading">正在加载...</view>
-      </block>
-      <view wx:else class="loadmore">没有更多内容了</view>
-    </block> -->
-
     <block wx:else>
       <template is="loading-template" data="{{hasMore:hasMore}}" />
     </block>
 
   </block>
   <view class="nocomment" wx:else>暂无评论</view>
-
-
 </view>

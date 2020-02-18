@@ -43,12 +43,7 @@ Page({
         id: num
       }
     }).then(res => {
-      console.log('===========')
-      console.log(res)
-      console.log('===========')
       var resl = res.result
-      console.log(resl)
-      console.log(resl.durations)
       if (resl.durations.length > 0) {
         var countryTime = resl.countries + '/' + resl.durations[0]
       } else {
@@ -69,7 +64,6 @@ Page({
         wx.getSystemInfo({
           success: res => {
             this.data.screenWidth = res.screenWidth
-            // console.log(this.data.screenWidth)
           }
         })
 
@@ -99,9 +93,6 @@ Page({
   },
   collectHandle(event) {
     wx.createSelectorQuery().select('.long-des .des').boundingClientRect(res => {
-      console.log('height')
-      console.log(res)
-      console.log('height')
     })
 
     var movie = event.currentTarget.dataset.collect
@@ -127,9 +118,6 @@ Page({
           }
         },
         success: res => {
-          console.log('Add success')
-          console.log(res)
-
           that.setData({
             has_collect: true
           })
@@ -145,7 +133,6 @@ Page({
       wx.showToast({
         title: '已添加想看',
         icon: 'success'
-        // icon: 'none'
 
       })
     } else {
@@ -167,7 +154,6 @@ Page({
               }
             }).then(res => {
 
-
               wx.cloud.callFunction({
                 name: 'JDBC',
                 data: {
@@ -179,8 +165,6 @@ Page({
                   }
                 }
               }).then(res => {
-                console.log('删除')
-                console.log(res)
                 that.setData({
                   has_collect: false,
                   has_rating: false,
@@ -210,12 +194,6 @@ Page({
 
   ratingHandle() {
 
-
-
-    // this.setData({
-    //   has_rating: true
-    // }, () => {
-
     wx.navigateTo({
       url: '../rating/rating?id=' + this.data.movieId + '&title=' + this.data.movieInfo.title + '&openid=' + app.globalData.openId,
       success: function(res) {
@@ -231,9 +209,7 @@ Page({
 
   },
   getCollectStatus() {
-    console.log('**************')
-    console.log(app.globalData.openId)
-    console.log('**************')
+ 
     wx.cloud.callFunction({
       name: 'JDBC',
       data: {
@@ -248,41 +224,20 @@ Page({
         }
       }
     }).then(res => {
-      console.log(res)
+   
       if (res.result.data.length > 0) {
         let isCollect = res.result.data[0].has_collect
-        console.log(res.result.data[0].has_collect)
-        console.log('isCollect ' + isCollect)
+
         this.setData({
           has_collect: isCollect
         })
-        console.log('ddddddddd ' + this.data.has_collect)
+    
       } else {
         return console.log('isFalse')
       }
     })
 
-    // db.where({
-    //   _openid: 'o_skI4xUC7BAcQLZg0lPHTASZjME',
-    //   id: this.data.movieId
-    // }).field({
-    //   has_collect: true
-    // }).get().then(res => {
-    //   if (res.data.length > 0) {
-    //     let isCollect = res.data[0].has_collect
-    //     // console.log(res.data[0].has_collect)
-    //     console.log('isCollect ' + isCollect)
-    //     this.setData({
-    //       has_collect: isCollect
-    //     })
-    //   } else {
-    //     return false
-    //   }
-    // })
-
-
-    console.log('has collect :' + this.data.has_collect)
-
+   
     wx.cloud.callFunction({
       name: 'JDBC',
       data: {
@@ -300,9 +255,6 @@ Page({
         }
       }
     }).then(res => {
-      console.log('222222222')
-      console.log(res)
-      console.log('222222222')
       if (res.result.data.length > 0) {
 
         let isRating = res.result.data[0].has_rating
@@ -332,7 +284,6 @@ Page({
         score: score
       })
     }
-    // console.log(JSON.parse(options.scoreDetail))
     this.setData({
       movieId: id
     })

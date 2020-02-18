@@ -16,6 +16,5 @@ page {
 
 .container image {
   width: 100%;
-  /* height: 90px; */
   height: 180rpx;
 }

@@ -12,8 +12,6 @@
           <view class="play">
             <image src="https://img3.doubanio.com/f/talion/68ff8e81492ad5ad72e57ceede8830f346dda183/pics/card/movie_play_btn.svg"></image>
           </view>
-
-          <view class="time">02:30</view>
         </view>
       </navigator>
     </block>

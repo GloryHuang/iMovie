@@ -44,27 +44,21 @@ page {
 }
 
 .detail-img image {
-  /* width: 110px;
-  height: 150px; *//* width: 180rpx; *//* height: 270rpx; *//* height: 100%; */
   width: 220rpx;
   height: 300rpx;
 }
 
 .detail-des {
-  /* flex: 1; */
   margin-left: 30rpx;
-  /* margin-top: -10rpx; */
 }
 
 .detail-des .title {
   font-size: 30rpx;
   color: #f7ffff;
   margin-top: 10rpx;
-  /* margin-top: 20rpx; */
 }
 
 .detail-des .title-name {
-  /* font-size: 20rpx; */
   font-size: 24rpx;
   color: #f7ffff;
   padding-top: 4rpx;
@@ -86,9 +80,6 @@ page {
   margin-bottom: 6rpx;
 }
 
-.detail-des view {
-  /* margin-bottom: 5rpx; */
-}
 
 .collection {
   display: flex;
@@ -96,15 +87,13 @@ page {
   align-items: center;
   width: 50%;
   height: 55rpx;
-  /* background-color: rgba(128, 128, 128, 0.3); */
+ 
   background-color: hsla(0, 0%, 100%, 0.35);
   border-radius: 6rpx;
   margin-right: 15rpx;
 }
 
 .collection image {
-  /* width: 40rpx;
-  height: 40rpx; */
   width: 32rpx;
   height: 32rpx;
   margin-right: 5rpx;
@@ -179,7 +168,6 @@ page {
 }
 
 .directors image, .scroll-item image {
-  /* width: 110px; */
   width: 100%;
   height: 150px;
 }
