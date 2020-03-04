@@ -22,7 +22,8 @@ Page({
     has_rating: false,
     openId: '',
     score: '',
-    loading: true
+    loading: true,
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
   showAll(e) {
@@ -91,9 +92,191 @@ Page({
       wx.hideLoading()
     })
   },
-  collectHandle(event) {
-    wx.createSelectorQuery().select('.long-des .des').boundingClientRect(res => {
+  collectHandle(e) {
+
+
+
+    if (e.detail.userInfo) {
+      this.collectMovie(e)
+      wx.setStorage({
+        key: 'userInfo',
+        data: e.detail.userInfo,
+      })
+    } else {
+      console.log('授权取消')
+    }
+
+    // var that = this
+    // wx.getSetting({
+    //   success(res) {
+    // console.log(res.authSetting['scope.userInfo'])
+    // if (res.authSetting['scope.userInfo']) {
+    //   console.log(res)
+
+    //   var userinfo = wx.getStorageSync('userInfo')
+
+    //   if (!userinfo) {
+    //     wx.getUserInfo({
+    //       success: res => {
+    //         console.log(res)
+    //         if (res.errMsg == "getUserInfo:ok") {
+    //           wx.setStorage({
+    //             key: 'userInfo',
+    //             data: res.userInfo,
+    //           })
+    //         }
+    //       }
+    //     })
+    //   }
+
+    //   that.collectMovie(event)
+
+
+    // } 
+
+
+
+    // else {
+    //   var userinfo = wx.getStorageSync('userInfo')
+
+    //   if (!userinfo) {
+    //     wx.getUserInfo({
+    //       success: res => {
+    //         console.log(res)
+    //         if (res.errMsg == "getUserInfo:ok") {
+    //           wx.setStorage({
+    //             key: 'userInfo',
+    //             data: res.userInfo,
+    //           })
+    //         }
+    //       }
+    //     })
+    //   }
+    // }
+    //   },
+    //   fail(err) {
+    //     console.log('is not Authorize')
+    //   }
+    // })
+
+
+
+  },
+
+
+
+  ratingHandle() {
+
+
+
+    var that = this
+    wx.getSetting({
+      success(res) {
+        // console.log(res.authSetting['scope.userInfo'])
+        if (res.authSetting['scope.userInfo']) {
+          wx.navigateTo({
+            url: '../rating/rating?id=' + that.data.movieId + '&title=' + that.data.movieInfo.title + '&openid=' + app.globalData.openId,
+            success: function(res) {
+              console.log(res)
+            },
+            fail: function(res) {},
+            complete: function(res) {},
+          })
+        } else {
+          var userinfo = wx.getStorageSync('userInfo')
+
+          if (!userinfo) {
+            wx.getUserInfo({
+              success: res => {
+                console.log(res)
+                if (res.errMsg == "getUserInfo:ok") {
+                  wx.setStorage({
+                    key: 'userInfo',
+                    data: res.userInfo,
+                  })
+                }
+              },
+              fail: err => {
+                console.log('err')
+              }
+            })
+          }
+        }
+      },
+      fail(err) {
+        console.log('is not Authorize')
+      }
     })
+
+
+
+  },
+  getCollectStatus() {
+
+    wx.cloud.callFunction({
+      name: 'JDBC',
+      data: {
+        table: 'user_collect',
+        type: 'get',
+        condition: {
+          _openid: app.globalData.openId,
+          id: this.data.movieId
+        },
+        field: {
+          has_collect: true
+        }
+      }
+    }).then(res => {
+
+      if (res.result.data.length > 0) {
+        let isCollect = res.result.data[0].has_collect
+
+        this.setData({
+          has_collect: isCollect
+        })
+
+      } else {
+        return console.log('isFalse')
+      }
+    })
+
+
+    wx.cloud.callFunction({
+      name: 'JDBC',
+      data: {
+        table: 'user_comment',
+        type: 'get',
+        condition: {
+          _openid: app.globalData.openId,
+          id: this.data.movieId
+        },
+        field: {
+          has_rating: true,
+          rating: true,
+          scoreTitle: true
+
+        }
+      }
+    }).then(res => {
+      if (res.result.data.length > 0) {
+
+        let isRating = res.result.data[0].has_rating
+        let score = {
+          score: res.result.data[0].rating + '分',
+          scoretitle: res.result.data[0].scoreTitle
+        }
+
+        this.setData({
+          has_rating: isRating,
+          score: score
+        })
+      }
+    })
+
+  },
+  collectMovie(event) {
+
+    wx.createSelectorQuery().select('.long-des .des').boundingClientRect(res => {})
 
     var movie = event.currentTarget.dataset.collect
     var that = this;
@@ -121,7 +304,7 @@ Page({
           that.setData({
             has_collect: true
           })
-
+          console.log('success')
         },
         fail: err => {
           console.log('Add Error')
@@ -188,87 +371,6 @@ Page({
       })
     }
 
-  },
-
-
-
-  ratingHandle() {
-
-    wx.navigateTo({
-      url: '../rating/rating?id=' + this.data.movieId + '&title=' + this.data.movieInfo.title + '&openid=' + app.globalData.openId,
-      success: function(res) {
-        console.log(res)
-      },
-      fail: function(res) {},
-      complete: function(res) {},
-    })
-
-    // })
-
-
-
-  },
-  getCollectStatus() {
- 
-    wx.cloud.callFunction({
-      name: 'JDBC',
-      data: {
-        table: 'user_collect',
-        type: 'get',
-        condition: {
-          _openid: app.globalData.openId,
-          id: this.data.movieId
-        },
-        field: {
-          has_collect: true
-        }
-      }
-    }).then(res => {
-   
-      if (res.result.data.length > 0) {
-        let isCollect = res.result.data[0].has_collect
-
-        this.setData({
-          has_collect: isCollect
-        })
-    
-      } else {
-        return console.log('isFalse')
-      }
-    })
-
-   
-    wx.cloud.callFunction({
-      name: 'JDBC',
-      data: {
-        table: 'user_comment',
-        type: 'get',
-        condition: {
-          _openid: app.globalData.openId,
-          id: this.data.movieId
-        },
-        field: {
-          has_rating: true,
-          rating: true,
-          scoreTitle: true
-
-        }
-      }
-    }).then(res => {
-      if (res.result.data.length > 0) {
-
-        let isRating = res.result.data[0].has_rating
-        let score = {
-          score: res.result.data[0].rating + '分',
-          scoretitle: res.result.data[0].scoreTitle
-        }
-
-        this.setData({
-          has_rating: isRating,
-          score: score
-        })
-      }
-    })
 
   },
   /**

@@ -1,7 +1,8 @@
 //app.js
 App({
   globalData: {
-    openId: ''
+    openId: '',
+    isAuth: false
   },
   onLaunch: function() {
 
@@ -32,7 +33,7 @@ App({
       name: 'login'
     }).then(res => {
       this.globalData.openId = res.result.openid
-     
+
     })
   }
 })

@@ -1,0 +1,11 @@
+.menuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menuList .menuItem  image {
+  width: 25rpx;
+  height: 25rpx;
+}
+

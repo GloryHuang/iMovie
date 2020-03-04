@@ -27,18 +27,18 @@
       </view>
 
       <view class="btnGroup">
-        <view class="collection" bindtap="collectHandle" data-collect="{{movieInfo}}">
+        <button class="collection" bindgetuserinfo="collectHandle" open-type="getUserInfo" data-collect="{{movieInfo}}">
           <image src="{{has_collect ?'../../images/collect-active.png':'../../images/collect.png'}}"></image>
           <text>想看</text>
-        </view>
-        <view class="collection" bindtap="ratingHandle" data-collect="{{movieInfo}}">
+        </button>
+        <button class="collection" bindtap="ratingHandle" open-type="getUserInfo" data-collect="{{movieInfo}}">
           <image src="{{has_rating ?'../../images/rating-active.png':'../../images/rating.png'}}"></image>
           <block wx:if="{{score==''}}">
             <text>评论</text>
           </block>
 
           <text wx:else class="cmt_select">{{score.score}},{{score.scoretitle}}</text>
-        </view>
+        </button>
       </view>
 
     </view>
