@@ -5,7 +5,7 @@
   <view class="cmt_title" wx:if="{{show_count}}">
     <text>{{comtTitle}}</text>
   </view>
-  <block wx:if="{{comtlist.length}}">
+  <block wx:if="{{hasComt}}">
     <view class="comments" wx:for="{{comtlist}}" wx:key="index">
       <view class="comt_header">
         <image src="{{item.author.avatar}}"></image>
@@ -24,7 +24,7 @@
     </view>
 
     <block wx:if="{{show_count}}">
-      <navigator url="../../pages/commentsList/commentsList?id={{comtid}}&count={{comments_count}}" hover-class="none" class="morecomt">查看全部{{comments_count}}条观众评论>
+      <navigator url="../../pages/commentsList/commentsList?id={{comtid}}&count={{comments_count}}" hover-class="none" class="morecomt">查看全部{{comments_count}}条观众评论 >
       </navigator>
     </block>
 

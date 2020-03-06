@@ -23,7 +23,8 @@ Page({
     openId: '',
     score: '',
     loading: true,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    hasComt: false
   },
 
   showAll(e) {
@@ -45,6 +46,8 @@ Page({
       }
     }).then(res => {
       var resl = res.result
+      var hasComt
+
       if (resl.durations.length > 0) {
         var countryTime = resl.countries + '/' + resl.durations[0]
       } else {
@@ -55,12 +58,19 @@ Page({
         title: resl.title,
       })
 
+      if (resl.popular_comments.length != 0) {
+        hasComt = true
+      } else {
+        hasComt = false
+      }
+
       this.setData({
         movieInfo: resl,
         countryTime: countryTime,
         comtTitle: this.data.comtTitle = '评论',
         movieId: num,
-        loading: false
+        loading: false,
+        hasComt: hasComt
       }, () => {
         wx.getSystemInfo({
           success: res => {
@@ -94,8 +104,6 @@ Page({
   },
   collectHandle(e) {
 
-
-
     if (e.detail.userInfo) {
       this.collectMovie(e)
       wx.setStorage({
@@ -106,76 +114,20 @@ Page({
       console.log('授权取消')
     }
 
-    // var that = this
-    // wx.getSetting({
-    //   success(res) {
-    // console.log(res.authSetting['scope.userInfo'])
-    // if (res.authSetting['scope.userInfo']) {
-    //   console.log(res)
-
-    //   var userinfo = wx.getStorageSync('userInfo')
-
-    //   if (!userinfo) {
-    //     wx.getUserInfo({
-    //       success: res => {
-    //         console.log(res)
-    //         if (res.errMsg == "getUserInfo:ok") {
-    //           wx.setStorage({
-    //             key: 'userInfo',
-    //             data: res.userInfo,
-    //           })
-    //         }
-    //       }
-    //     })
-    //   }
-
-    //   that.collectMovie(event)
-
-
-    // } 
-
-
-
-    // else {
-    //   var userinfo = wx.getStorageSync('userInfo')
-
-    //   if (!userinfo) {
-    //     wx.getUserInfo({
-    //       success: res => {
-    //         console.log(res)
-    //         if (res.errMsg == "getUserInfo:ok") {
-    //           wx.setStorage({
-    //             key: 'userInfo',
-    //             data: res.userInfo,
-    //           })
-    //         }
-    //       }
-    //     })
-    //   }
-    // }
-    //   },
-    //   fail(err) {
-    //     console.log('is not Authorize')
-    //   }
-    // })
-
-
-
   },
 
 
 
   ratingHandle() {
 
-
-
     var that = this
     wx.getSetting({
       success(res) {
-        // console.log(res.authSetting['scope.userInfo'])
+
         if (res.authSetting['scope.userInfo']) {
+
           wx.navigateTo({
-            url: '../rating/rating?id=' + that.data.movieId + '&title=' + that.data.movieInfo.title + '&openid=' + app.globalData.openId,
+            url: '../rating/rating?id=' + that.data.movieId + '&title=' + that.data.movieInfo.title + '&openid=' + app.globalData.openId + '&isRating=' + that.data.has_rating,
             success: function(res) {
               console.log(res)
             },
@@ -188,7 +140,7 @@ Page({
           if (!userinfo) {
             wx.getUserInfo({
               success: res => {
-                console.log(res)
+
                 if (res.errMsg == "getUserInfo:ok") {
                   wx.setStorage({
                     key: 'userInfo',
@@ -219,8 +171,8 @@ Page({
         table: 'user_collect',
         type: 'get',
         condition: {
-          _openid: app.globalData.openId,
-          id: this.data.movieId
+          // _openid: app.globalData.openId,
+          _id: this.data.movieId + app.globalData.openId
         },
         field: {
           has_collect: true
@@ -235,20 +187,20 @@ Page({
           has_collect: isCollect
         })
 
-      } else {
-        return console.log('isFalse')
       }
     })
 
-
+    console.log('=================')
+    console.log(this.data.movieId + app.globalData.openId)
+    console.log(app.globalData)
+    console.log('=================')
     wx.cloud.callFunction({
       name: 'JDBC',
       data: {
         table: 'user_comment',
         type: 'get',
         condition: {
-          _openid: app.globalData.openId,
-          id: this.data.movieId
+          _id: this.data.movieId + app.globalData.openId
         },
         field: {
           has_rating: true,
@@ -258,11 +210,14 @@ Page({
         }
       }
     }).then(res => {
-      if (res.result.data.length > 0) {
+
+
+      if (res.result.data.length != 0) {
 
         let isRating = res.result.data[0].has_rating
+
         let score = {
-          score: res.result.data[0].rating + '分',
+          score: res.result.data[0].rating,
           scoretitle: res.result.data[0].scoreTitle
         }
 
@@ -291,7 +246,7 @@ Page({
           type: 'add',
           data: {
             _openid: app.globalData.openId,
-            id: movie.id,
+            _id: movie.id + app.globalData.openId,
             title: movie.title,
             casts: movie.casts,
             genres: movie.genres,
@@ -331,8 +286,8 @@ Page({
                 table: 'user_collect',
                 type: 'remove',
                 condition: {
-                  id: movie.id,
-                  _openid: app.globalData.openId,
+                  _id: movie.id + app.globalData.openId
+                  // _openid: app.globalData.openId,
                 }
               }
             }).then(res => {
@@ -343,8 +298,8 @@ Page({
                   table: 'user_comment',
                   type: 'remove',
                   condition: {
-                    id: movie.id,
-                    _openid: app.globalData.openId,
+                    _id: movie.id + app.globalData.openId
+                    // _openid: app.globalData.openId,
                   }
                 }
               }).then(res => {
@@ -380,6 +335,7 @@ Page({
 
 
     let id = options.id
+
     if (options.scoreDetail) {
       let score = JSON.parse(options.scoreDetail)
       this.setData({
@@ -388,10 +344,12 @@ Page({
     }
     this.setData({
       movieId: id
+
     })
 
     this.getMovieInfo(options.id)
     this.getCollectStatus(id)
+
   },
 
   /**

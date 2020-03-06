@@ -1,4 +1,4 @@
-<view wx:if="{{collectList.length>0}}">
+<view wx:if="{{isShow}}">
   <list movieList="{{collectList}}"></list>
 </view>
 

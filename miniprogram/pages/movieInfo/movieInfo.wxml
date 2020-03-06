@@ -37,7 +37,7 @@
             <text>评论</text>
           </block>
 
-          <text wx:else class="cmt_select">{{score.score}},{{score.scoretitle}}</text>
+          <text wx:else class="cmt_select">{{score.score}}分,{{score.scoretitle}}</text>
         </button>
       </view>
 
@@ -79,7 +79,7 @@
 
   <preview movieInfo="{{movieInfo}}"></preview>
 
-  <comments comtTitle="{{comtTitle}}" comtid="{{movieInfo.id}}" comtlist="{{movieInfo.popular_comments}}" comments_count="{{movieInfo.comments_count}}" show_count="{{true}}" hasMore="{{false}}"></comments>
+  <comments comtTitle="{{comtTitle}}" comtid="{{movieInfo.id}}" comtlist="{{movieInfo.popular_comments}}" comments_count="{{movieInfo.comments_count}}" show_count="{{true}}" hasMore="{{false}}" hasComt="{{hasComt}}"></comments>
 
 
 </view>

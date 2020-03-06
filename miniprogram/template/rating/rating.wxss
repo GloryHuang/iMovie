@@ -25,7 +25,8 @@
   /* width: 55px;
   height: 11px; */
   width: 110rpx;
-  height: 22rpx;
+  /* height: 22rpx; */
+  height: 21rpx;
   position: absolute;
   background-repeat: no-repeat;
 }
@@ -46,7 +47,7 @@
 
 .allstar7 {
   /* background-position: 0px -33px; */
-  background-position: 0px -66rpx;
+  background-position: 0px -68rpx;
 }
 
 .allstar6 {

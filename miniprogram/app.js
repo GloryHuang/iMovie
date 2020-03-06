@@ -1,7 +1,7 @@
 //app.js
 App({
   globalData: {
-    openId: '',
+    openId: null,
     isAuth: false
   },
   onLaunch: function() {
@@ -32,6 +32,7 @@ App({
     wx.cloud.callFunction({
       name: 'login'
     }).then(res => {
+
       this.globalData.openId = res.result.openid
 
     })
