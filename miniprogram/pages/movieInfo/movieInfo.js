@@ -193,6 +193,7 @@ Page({
     console.log('=================')
     console.log(this.data.movieId + app.globalData.openId)
     console.log(app.globalData)
+    console.log(app.globalData.openid)
     console.log('=================')
     wx.cloud.callFunction({
       name: 'JDBC',

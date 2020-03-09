@@ -18,13 +18,26 @@ App({
         traceUser: true,
       })
 
-      this.getOpenId()
+      // 
 
     }
 
 
+    // this.getOpenId()
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[login] user openid: ', res.result.openid)
+        this.globalData.openid = res.result.openid
+      },
+      fail: err => {
+        console.error('获取用户openid失败', err)
+      }
+    })
 
 
+    console.log('Is Launch')
 
 
   },
