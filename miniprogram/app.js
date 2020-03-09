@@ -29,7 +29,7 @@ App({
       data: {},
       success: res => {
         console.log('[login] user openid: ', res.result.openid)
-        this.globalData.openid = res.result.openid
+        this.globalData.openId = res.result.openid
       },
       fail: err => {
         console.error('获取用户openid失败', err)
@@ -41,13 +41,13 @@ App({
 
 
   },
-  getOpenId() {
-    wx.cloud.callFunction({
-      name: 'login'
-    }).then(res => {
+  // getOpenId() {
+  //   wx.cloud.callFunction({
+  //     name: 'login'
+  //   }).then(res => {
 
-      this.globalData.openId = res.result.openid
+  //     this.globalData.openId = res.result.openid
 
-    })
-  }
+  //   })
+  // }
 })
