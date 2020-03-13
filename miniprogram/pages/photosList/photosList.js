@@ -8,7 +8,10 @@ Page({
     id: '',
     photoslist: [],
     photoNum: '',
-    hasMore: false
+    hasMore: false, 
+    startNum: 0, 
+    countNum: 28, 
+    showLoding: false 
   },
 
   /**
@@ -16,6 +19,12 @@ Page({
    */
   onLoad: function(options) {
 
+    if (this.data.photoslist.length == 24) {
+      this.setData({
+        showLoding: false
+      })
+    } 
+    
     this.setData({
       id: options.id
     })
@@ -29,19 +38,43 @@ Page({
         type:'getPhotos',
         id: id,
         start: 0,
-        count: 24
+        count: this.data.countNum 
       }
     }).then(res => {
 
       var list = res.result.photos
-      let photoNum = 45
+      let photoNum = res.result.total 
       let hasMore = this.data.photoslist.length <= photoNum
 
-      this.setData({
-        photoslist: this.data.photoslist.concat(list),
-        photoNum: photoNum,
-        hasMore: hasMore
-      })
+
+
+      if (this.data.photoslist.length <= photoNum) { 
+ 
+        var result = list.filter(item1 => { 
+          return this.data.photoslist.filter(item2 => { 
+            return item1.id != item2.id 
+          }) 
+        }) 
+ 
+
+ 
+        this.setData({ 
+          photoslist: result, 
+          photoNum: photoNum, 
+          showLoding: true, 
+          hasMore: hasMore, 
+          countNum: this.data.countNum + this.data.countNum 
+        }) 
+         
+      }  
+ 
+      if (this.data.photoslist.length >= photoNum){ 
+        this.setData({ 
+          hasMore:false 
+        }) 
+      } 
+
+
       wx.setNavigationBarTitle({
         title: res.result.subject.title
       })
