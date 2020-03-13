@@ -8,32 +8,40 @@ Page({
     comtlist: [],
     id: '',
     cmt_count: '',
-    hasMore: false,
-    title:''
+    hasMore: true,
+    title: '',
+    hasComt: true
   },
   getCmtList(id) {
 
     wx.cloud.callFunction({
-      // name: 'getComtList',
-      name:'API',
+      name: 'API',
       data: {
-        type:'getComment',
+        type: 'getComment',
         id: id,
         start: this.data.comtlist.length,
         count: 10
       }
     }).then(res => {
       var data = res.result;
+      var hasComt
       console.log(data)
-      var hasMore = this.data.comtlist.length <this.data.cmt_count
+      var hasMore = this.data.comtlist.length < this.data.cmt_count
       console.log(this.data.comtlist.length, this.data.cmt_count)
+      if (data.total <= 10) {
+        hasMore = false
+      }
+      if (data.comments.length != 0) {
+        hasComt = true
+      }
       this.setData({
         comtlist: this.data.comtlist.concat(data.comments),
         hasMore: hasMore,
-        title: data.subject.title
+        title: data.subject.title,
+        hasComt: hasComt
       });
       wx.setNavigationBarTitle({
-        title: '观众评论-'+this.data.title,
+        title: '观众评论-' + this.data.title,
       })
       wx.stopPullDownRefresh()
 
@@ -52,8 +60,8 @@ Page({
     })
     this.getCmtList(this.data.id)
 
- 
-  
+
+
 
   },
 

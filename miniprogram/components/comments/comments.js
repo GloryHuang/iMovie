@@ -5,11 +5,12 @@ Component({
     comtid: Number,
     comments_count: Number,
     show_count: Boolean,
-    hasMore:Boolean
+    hasMore: Boolean,
+    hasComt: Boolean
   },
 
   data: {
-    
+
   },
   methods: {
 

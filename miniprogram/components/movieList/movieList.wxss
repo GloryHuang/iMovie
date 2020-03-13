@@ -12,15 +12,11 @@
 
 .hot .hot-item {
   border-bottom: 1rpx solid #ccc;
-  /* margin-top: 10rpx; */
   padding: 10rpx 10rpx;
   display: flex;
   overflow: hidden;
 }
 
-/* .hot-item .photo image {
-  padding: 0 10rpx;
-} */
 
 .hot .hot-item:last-child {
   border-bottom: 0;
@@ -41,15 +37,11 @@
   color: #d81e06;
   font-size: 34rpx;
   margin-top: -5rpx;
-  /* font-weight: 700; */
 }
 
 .movie-avatars, .movie-genres, .movie-year {
   font-size: 25rpx;
   padding-top: 10rpx;
-}
-
-.movie-info .movie-avatars {
 }
 
 .movie-info text {

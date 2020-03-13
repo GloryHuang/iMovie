@@ -2,5 +2,6 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "movie-list": "/components/movieList/movieList"
-  }
+  },
+  "navigationBarBackgroundColor": "#dd403b"
 }

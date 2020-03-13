@@ -12,8 +12,6 @@
         <text class="line-ellipsis">{{item.genres}}</text>
       </view>
       <view class="movie-avatars">
-      <!-- casts.name -->
-        <!-- <text class="line-ellipsis"><block wx:for="{{item.casts}}"  wx:for-item="casts" wx:key="id">{{utils.castsHandle(casts.name)}}</block></text> -->
         <text class="line-ellipsis">{{utils.castsHandle(item.casts)}}</text>
       </view>
       <view class="movie-year" wx:if="{{item.mainland_pubdate}}">

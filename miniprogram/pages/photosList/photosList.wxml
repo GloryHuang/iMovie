@@ -9,3 +9,4 @@
 <block wx:if="{{showLoding}}">
   <template  is="loading-template" data="{{hasMore:hasMore}}"/>
 </block>
+

@@ -3,5 +3,6 @@
   "usingComponents": {
     "comments": "/components/comments/comments",
     "preview":"/components/preview/preview"
-  }
+  },
+  "navigationBarBackgroundColor": "#dd403b"
 }

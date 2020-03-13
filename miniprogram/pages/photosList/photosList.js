@@ -8,21 +8,25 @@ Page({
     id: '',
     photoslist: [],
     photoNum: '',
-    hasMore: false,
-    startNum: 0,
-    countNum: 28,
-    showLoding: false
+    hasMore: false, 
+    startNum: 0, 
+    countNum: 28, 
+    showLoding: false 
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
     if (this.data.photoslist.length == 24) {
       this.setData({
         showLoding: false
       })
-    }
+
+    } 
+    
+
     this.setData({
       id: options.id
     })
@@ -31,55 +35,50 @@ Page({
   getPhotos(id) {
 
     wx.cloud.callFunction({
-      // name: 'getPhotos',
-      name: 'API',
+      name:'API',
+
       data: {
         type: 'getPhotos',
         id: id,
         start: 0,
-        count: this.data.countNum
+        count: this.data.countNum 
+
       }
     }).then(res => {
-      console.log(res.result);
+
       var list = res.result.photos
-      // let photoNum = res.result.total
-      // let photoNum = 45
-      let photoNum = res.result.total
 
+      let photoNum = res.result.total 
       let hasMore = this.data.photoslist.length <= photoNum
-      // console.log(this.data.photoslist.length, photoNum)
-      // console.log(list,'list')
-      // console.log(hasMore)
 
-      if (this.data.photoslist.length <= photoNum) {
 
-        var result = list.filter(item1 => {
-          return this.data.photoslist.filter(item2 => {
-            return item1.id != item2.id
-          })
-        })
 
-        // console.log(result)
+      if (this.data.photoslist.length <= photoNum) { 
+ 
+        var result = list.filter(item1 => { 
+          return this.data.photoslist.filter(item2 => { 
+            return item1.id != item2.id 
+          }) 
+        }) 
+ 
 
-        this.setData({
-          photoslist: result,
-          photoNum: photoNum,
-          showLoding: true,
-          hasMore: hasMore,
-          // showLoding: true,
-          // startNum: photoNum - this.data.countNum
-          countNum: this.data.countNum + this.data.countNum
-        })
-        
-        // console.log(this.data.startNum, this.data.countNum)
-        // console.log(this.data.photoslist.length, photoNum)
+ 
+        this.setData({ 
+          photoslist: result, 
+          photoNum: photoNum, 
+          showLoding: true, 
+          hasMore: hasMore, 
+          countNum: this.data.countNum + this.data.countNum 
+        }) 
+         
+      }  
+ 
+      if (this.data.photoslist.length >= photoNum){ 
+        this.setData({ 
+          hasMore:false 
+        }) 
       } 
 
-      if (this.data.photoslist.length >= photoNum){
-        this.setData({
-          hasMore:false
-        })
-      }
 
 
       wx.setNavigationBarTitle({

@@ -5,13 +5,12 @@
   <view class="cmt_title" wx:if="{{show_count}}">
     <text>{{comtTitle}}</text>
   </view>
-  <block wx:if="{{comtlist.length}}">
+  <block wx:if="{{hasComt}}">
     <view class="comments" wx:for="{{comtlist}}" wx:key="index">
       <view class="comt_header">
         <image src="{{item.author.avatar}}"></image>
         <view class="cmt_info">
           <text class="cmt_user">{{item.author.name}}</text>
-          <!-- <text class="cmt_rating">{{item.rating.value}}</text> -->
           <template is="rating-template" data="{{showRating:true,rating:item.rating.value}}" />
         </view>
       </view>
@@ -25,16 +24,9 @@
     </view>
 
     <block wx:if="{{show_count}}">
-      <navigator url="../../pages/commentsList/commentsList?id={{comtid}}&count={{comments_count}}" hover-class="none" class="morecomt">查看全部{{comments_count}}条观众评论>
+      <navigator url="../../pages/commentsList/commentsList?id={{comtid}}&count={{comments_count}}" hover-class="none" class="morecomt">查看全部{{comments_count}}条观众评论 >
       </navigator>
     </block>
-
-    <!-- <block wx:else>
-      <block wx:if="{{hasMore}}">
-        <view class="loadmore loading">正在加载...</view>
-      </block>
-      <view wx:else class="loadmore">没有更多内容了</view>
-    </block> -->
 
     <block wx:else>
       <template is="loading-template" data="{{hasMore:hasMore}}" />
@@ -42,6 +34,4 @@
 
   </block>
   <view class="nocomment" wx:else>暂无评论</view>
-
-
 </view>

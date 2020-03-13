@@ -22,7 +22,9 @@ Page({
     has_rating: false,
     openId: '',
     score: '',
-    loading: true
+    loading: true,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    hasComt: false
   },
 
   showAll(e) {
@@ -43,12 +45,9 @@ Page({
         id: num
       }
     }).then(res => {
-      console.log('===========')
-      console.log(res)
-      console.log('===========')
       var resl = res.result
-      console.log(resl)
-      console.log(resl.durations)
+      var hasComt
+
       if (resl.durations.length > 0) {
         var countryTime = resl.countries + '/' + resl.durations[0]
       } else {
@@ -59,17 +58,23 @@ Page({
         title: resl.title,
       })
 
+      if (resl.popular_comments.length != 0) {
+        hasComt = true
+      } else {
+        hasComt = false
+      }
+
       this.setData({
         movieInfo: resl,
         countryTime: countryTime,
         comtTitle: this.data.comtTitle = '评论',
         movieId: num,
-        loading: false
+        loading: false,
+        hasComt: hasComt
       }, () => {
         wx.getSystemInfo({
           success: res => {
             this.data.screenWidth = res.screenWidth
-            // console.log(this.data.screenWidth)
           }
         })
 
@@ -97,12 +102,137 @@ Page({
       wx.hideLoading()
     })
   },
-  collectHandle(event) {
-    wx.createSelectorQuery().select('.long-des .des').boundingClientRect(res => {
-      console.log('height')
-      console.log(res)
-      console.log('height')
+  collectHandle(e) {
+
+    if (e.detail.userInfo) {
+      this.collectMovie(e)
+      wx.setStorage({
+        key: 'userInfo',
+        data: e.detail.userInfo,
+      })
+    } else {
+      console.log('授权取消')
+    }
+
+  },
+
+
+
+  ratingHandle() {
+
+    var that = this
+    wx.getSetting({
+      success(res) {
+
+        if (res.authSetting['scope.userInfo']) {
+
+          wx.navigateTo({
+            url: '../rating/rating?id=' + that.data.movieId + '&title=' + that.data.movieInfo.title + '&openid=' + app.globalData.openId + '&isRating=' + that.data.has_rating,
+            success: function(res) {
+              console.log(res)
+            },
+            fail: function(res) {},
+            complete: function(res) {},
+          })
+        } else {
+          var userinfo = wx.getStorageSync('userInfo')
+
+          if (!userinfo) {
+            wx.getUserInfo({
+              success: res => {
+
+                if (res.errMsg == "getUserInfo:ok") {
+                  wx.setStorage({
+                    key: 'userInfo',
+                    data: res.userInfo,
+                  })
+                }
+              },
+              fail: err => {
+                console.log('err')
+              }
+            })
+          }
+        }
+      },
+      fail(err) {
+        console.log('is not Authorize')
+      }
     })
+
+
+
+  },
+  getCollectStatus() {
+
+    wx.cloud.callFunction({
+      name: 'JDBC',
+      data: {
+        table: 'user_collect',
+        type: 'get',
+        condition: {
+          // _openid: app.globalData.openId,
+          _id: this.data.movieId + app.globalData.openId
+        },
+        field: {
+          has_collect: true
+        }
+      }
+    }).then(res => {
+
+      if (res.result.data.length > 0) {
+        let isCollect = res.result.data[0].has_collect
+
+        this.setData({
+          has_collect: isCollect
+        })
+
+      }
+    })
+
+    console.log('=================')
+    console.log(this.data.movieId + app.globalData.openId)
+    console.log(app.globalData)
+    console.log(app.globalData.openid)
+    console.log('=================')
+    wx.cloud.callFunction({
+      name: 'JDBC',
+      data: {
+        table: 'user_comment',
+        type: 'get',
+        condition: {
+          _id: this.data.movieId + app.globalData.openId
+        },
+        field: {
+          has_rating: true,
+          rating: true,
+          scoreTitle: true
+
+        }
+      }
+    }).then(res => {
+
+
+      if (res.result.data.length != 0) {
+
+        let isRating = res.result.data[0].has_rating
+
+        let score = {
+          score: res.result.data[0].rating,
+          scoretitle: res.result.data[0].scoreTitle
+        }
+
+        this.setData({
+          has_rating: isRating,
+          score: score
+        })
+      }
+    })
+
+  },
+  collectMovie(event) {
+
+    wx.createSelectorQuery().select('.long-des .des').boundingClientRect(res => {})
 
     var movie = event.currentTarget.dataset.collect
     var that = this;
@@ -117,7 +247,7 @@ Page({
           type: 'add',
           data: {
             _openid: app.globalData.openId,
-            id: movie.id,
+            _id: movie.id + app.globalData.openId,
             title: movie.title,
             casts: movie.casts,
             genres: movie.genres,
@@ -127,13 +257,10 @@ Page({
           }
         },
         success: res => {
-          console.log('Add success')
-          console.log(res)
-
           that.setData({
             has_collect: true
           })
-
+          console.log('success')
         },
         fail: err => {
           console.log('Add Error')
@@ -145,7 +272,6 @@ Page({
       wx.showToast({
         title: '已添加想看',
         icon: 'success'
-        // icon: 'none'
 
       })
     } else {
@@ -161,12 +287,11 @@ Page({
                 table: 'user_collect',
                 type: 'remove',
                 condition: {
-                  id: movie.id,
-                  _openid: app.globalData.openId,
+                  _id: movie.id + app.globalData.openId
+                  // _openid: app.globalData.openId,
                 }
               }
             }).then(res => {
-
 
               wx.cloud.callFunction({
                 name: 'JDBC',
@@ -174,13 +299,11 @@ Page({
                   table: 'user_comment',
                   type: 'remove',
                   condition: {
-                    id: movie.id,
-                    _openid: app.globalData.openId,
+                    _id: movie.id + app.globalData.openId
+                    // _openid: app.globalData.openId,
                   }
                 }
               }).then(res => {
-                console.log('删除')
-                console.log(res)
                 that.setData({
                   has_collect: false,
                   has_rating: false,
@@ -204,119 +327,6 @@ Page({
       })
     }
 
-  },
-
-
-
-  ratingHandle() {
-
-
-
-    // this.setData({
-    //   has_rating: true
-    // }, () => {
-
-    wx.navigateTo({
-      url: '../rating/rating?id=' + this.data.movieId + '&title=' + this.data.movieInfo.title + '&openid=' + app.globalData.openId,
-      success: function(res) {
-        console.log(res)
-      },
-      fail: function(res) {},
-      complete: function(res) {},
-    })
-
-    // })
-
-
-
-  },
-  getCollectStatus() {
-    console.log('**************')
-    console.log(app.globalData.openId)
-    console.log('**************')
-    wx.cloud.callFunction({
-      name: 'JDBC',
-      data: {
-        table: 'user_collect',
-        type: 'get',
-        condition: {
-          _openid: app.globalData.openId,
-          id: this.data.movieId
-        },
-        field: {
-          has_collect: true
-        }
-      }
-    }).then(res => {
-      console.log(res)
-      if (res.result.data.length > 0) {
-        let isCollect = res.result.data[0].has_collect
-        console.log(res.result.data[0].has_collect)
-        console.log('isCollect ' + isCollect)
-        this.setData({
-          has_collect: isCollect
-        })
-        console.log('ddddddddd ' + this.data.has_collect)
-      } else {
-        return console.log('isFalse')
-      }
-    })
-
-    // db.where({
-    //   _openid: 'o_skI4xUC7BAcQLZg0lPHTASZjME',
-    //   id: this.data.movieId
-    // }).field({
-    //   has_collect: true
-    // }).get().then(res => {
-    //   if (res.data.length > 0) {
-    //     let isCollect = res.data[0].has_collect
-    //     // console.log(res.data[0].has_collect)
-    //     console.log('isCollect ' + isCollect)
-    //     this.setData({
-    //       has_collect: isCollect
-    //     })
-    //   } else {
-    //     return false
-    //   }
-    // })
-
-
-    console.log('has collect :' + this.data.has_collect)
-
-    wx.cloud.callFunction({
-      name: 'JDBC',
-      data: {
-        table: 'user_comment',
-        type: 'get',
-        condition: {
-          _openid: app.globalData.openId,
-          id: this.data.movieId
-        },
-        field: {
-          has_rating: true,
-          rating: true,
-          scoreTitle: true
-
-        }
-      }
-    }).then(res => {
-      console.log('222222222')
-      console.log(res)
-      console.log('222222222')
-      if (res.result.data.length > 0) {
-
-        let isRating = res.result.data[0].has_rating
-        let score = {
-          score: res.result.data[0].rating + '分',
-          scoretitle: res.result.data[0].scoreTitle
-        }
-
-        this.setData({
-          has_rating: isRating,
-          score: score
-        })
-      }
-    })
 
   },
   /**
@@ -326,19 +336,21 @@ Page({
 
 
     let id = options.id
+
     if (options.scoreDetail) {
       let score = JSON.parse(options.scoreDetail)
       this.setData({
         score: score
       })
     }
-    // console.log(JSON.parse(options.scoreDetail))
     this.setData({
       movieId: id
+
     })
 
     this.getMovieInfo(options.id)
     this.getCollectStatus(id)
+
   },
 
   /**

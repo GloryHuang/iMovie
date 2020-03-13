@@ -1,7 +1,8 @@
 //app.js
 App({
   globalData: {
-    openId: ''
+    openId: null,
+    isAuth: false
   },
   onLaunch: function() {
 
@@ -17,22 +18,36 @@ App({
         traceUser: true,
       })
 
-      this.getOpenId()
+      // 
 
     }
 
 
+    // this.getOpenId()
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[login] user openid: ', res.result.openid)
+        this.globalData.openId = res.result.openid
+      },
+      fail: err => {
+        console.error('获取用户openid失败', err)
+      }
+    })
 
 
+    console.log('Is Launch')
 
 
   },
-  getOpenId() {
-    wx.cloud.callFunction({
-      name: 'login'
-    }).then(res => {
-      this.globalData.openId = res.result.openid
-     
-    })
-  }
+  // getOpenId() {
+  //   wx.cloud.callFunction({
+  //     name: 'login'
+  //   }).then(res => {
+
+  //     this.globalData.openId = res.result.openid
+
+  //   })
+  // }
 })

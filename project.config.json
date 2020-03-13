@@ -90,7 +90,7 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 6,
 					"name": "components/rating/rating",
 					"pathName": "template/rating/rating",
 					"query": "",
@@ -150,6 +150,27 @@
 					"name": "pages/movieInfo/movieInfo",
 					"pathName": "pages/movieInfo/movieInfo",
 					"query": "id=27624663",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/commentsList/commentsList",
+					"pathName": "pages/commentsList/commentsList",
+					"query": "id=34822531",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/movieInfo/movieInfo",
+					"pathName": "pages/movieInfo/movieInfo",
+					"query": "id=34822531",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/movieInfo/movieInfo",
+					"pathName": "pages/movieInfo/movieInfo",
+					"query": "id=26885074",
 					"scene": null
 				}
 			]

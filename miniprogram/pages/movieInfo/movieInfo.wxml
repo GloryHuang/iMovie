@@ -27,18 +27,18 @@
       </view>
 
       <view class="btnGroup">
-        <view class="collection" bindtap="collectHandle" data-collect="{{movieInfo}}">
+        <button class="collection" bindgetuserinfo="collectHandle" open-type="getUserInfo" data-collect="{{movieInfo}}">
           <image src="{{has_collect ?'../../images/collect-active.png':'../../images/collect.png'}}"></image>
           <text>想看</text>
-        </view>
-        <view class="collection" bindtap="ratingHandle" data-collect="{{movieInfo}}">
+        </button>
+        <button class="collection" bindtap="ratingHandle" open-type="getUserInfo" data-collect="{{movieInfo}}">
           <image src="{{has_rating ?'../../images/rating-active.png':'../../images/rating.png'}}"></image>
           <block wx:if="{{score==''}}">
             <text>评论</text>
           </block>
 
-          <text wx:else class="cmt_select">{{score.score}},{{score.scoretitle}}</text>
-        </view>
+          <text wx:else class="cmt_select">{{score.score}}分,{{score.scoretitle}}</text>
+        </button>
       </view>
 
     </view>
@@ -79,7 +79,7 @@
 
   <preview movieInfo="{{movieInfo}}"></preview>
 
-  <comments comtTitle="{{comtTitle}}" comtid="{{movieInfo.id}}" comtlist="{{movieInfo.popular_comments}}" comments_count="{{movieInfo.comments_count}}" show_count="{{true}}" hasMore="{{false}}"></comments>
+  <comments comtTitle="{{comtTitle}}" comtid="{{movieInfo.id}}" comtlist="{{movieInfo.popular_comments}}" comments_count="{{movieInfo.comments_count}}" show_count="{{true}}" hasMore="{{false}}" hasComt="{{hasComt}}"></comments>
 
 
 </view>

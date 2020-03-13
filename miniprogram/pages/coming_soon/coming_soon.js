@@ -10,19 +10,16 @@ Page({
   },
   getMovie() {
     wx.cloud.callFunction({
-      // name: 'getSoonMovie',
       name: 'API',
       data: {
         type: 'getSoonMovie'
       }
     }).then(res => {
       console.log(res)
-      // var title = JSON.parse(res.result).title
       var title = res.result.title
 
       this.setData({
         movieList: this.data.movieList.concat(res.result.subjects),
-        // castsList:
         title: title
       });
     }).catch(err => {

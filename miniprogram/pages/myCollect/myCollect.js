@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShow: true,
     collectList: []
   },
 
@@ -14,7 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getList()
+
 
   },
   getList() {
@@ -29,8 +30,18 @@ Page({
       }
     }).then(res => {
       console.log(res)
+
+      var isShow
+      if (res.result.data.length != 0) {
+        isShow = true
+      } else {
+        isShow = false
+      }
+
+
       this.setData({
-        collectList: res.result.data
+        collectList: res.result.data,
+        isShow: isShow
       })
       wx.stopPullDownRefresh()
     })
@@ -48,7 +59,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.onLoad();
+    this.getList()
   },
 
   /**

@@ -1,0 +1,6 @@
+<template name="list-item">
+  <view class="menuItem">
+    <text>{{title}}</text>
+    <image src="../../images/expand.png"></image>
+  </view>
+</template>

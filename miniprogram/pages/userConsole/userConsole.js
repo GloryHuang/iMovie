@@ -11,7 +11,20 @@ Page({
       title: '我的想看',
       url: '/pages/myCollect/myCollect'
     }],
-    secondMenu: ['分享给朋友', '联系我们', '反馈', '关于']
+    secondMenu: [{
+      title: '分享给朋友',
+      url: ''
+    }, {
+      title: '联系我们',
+      url: ''
+    }, {
+      title: '反馈',
+      url: ''
+    }, {
+      title: '关于',
+      url: ''
+    }],
+    isAuthorize: false
   },
 
   /**
@@ -19,63 +32,83 @@ Page({
    */
   onLoad: function(options) {
     // 查看是否授权
-    // wx.getSetting({
-    //   success(res) {
-    //     console.log(res)
-    //     if (res.authSetting['scope.userInfo']) {
-    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-    //       wx.getUserInfo({
-    //         success: function(res) {
-    //           console.log(res.userInfo)
-    //           console.log(res)
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
-
-    var that = this;
-    wx.login({
-      success: function(e) {
-
-        wx.cloud.callFunction({
-          name: 'getOpenID',
-          data: {
-            code: e.code
-          }
-        }).then(res => {
-          let result = res.result
-          console.log(result)
-          that.setData({
-            opid: result.openid
-          })
-
-          console.log(that.data.opid)
-        }).catch(err => {
-          console.log(err)
-        })
-      }
-    })
+    if (wx.getStorageSync('userInfo')) {
+      this.setData({
+        isAuthorize: true
+      })
+    }
 
 
   },
   bindGetUserInfo(e) {
-    // console.log(e.detail.userInfo)
+    console.log(e.detail.userInfo)
 
-    // wx.login({
-    //   success: function(e) {
-    //     console.log('======', e.code)
-    //     // jsCode = e.code
-    //     console.log('======')
-    //     wx.request({
-    //       url: `https://api.weixin.qq.com/sns/jscode2session?appid=wxb6d80a7e1b3c8012&secret=bc4354046a3e1c900e5e3949b9ed158e&js_code=${e.code}&grant_type=authorization_code`,
-    //       method: 'GET',
-    //       success(res) {
-    //         console.log(res)
+  },
+  login(e) {
+    console.log(e)
+    let path = e.currentTarget.dataset.url
+    console.log(path)
+    if (e.detail.userInfo) {
+      this.setData({
+        isAuthorize: true
+      })
+      wx.setStorage({
+        key: 'userInfo',
+        data: e.detail.userInfo,
+      })
 
+      if (path == 'userConsole') {
+        wx.switchTab({
+          url: `../../pages/${path}/${path}`
+        })
+      } else {
+
+        wx.navigateTo({
+          url: `../../pages/${path}/${path}`
+        })
+      }
+
+    } else {
+      //用户按了拒绝按钮
+
+      console.log('拒绝')
+      return false
+    }
+
+
+    // var that = this
+    // wx.getSetting({
+    //   success(res) {
+    //     if (res.authSetting['scope.userInfo']) {
+    //       // that.setData({
+    //       //   isAuthorize: true
+    //       // })
+    //       console.log('已授权')
+
+    //     } else {
+    //       var userinfo = wx.getStorageSync('userInfo')
+    //       if (!userinfo) {
+    //         wx.getUserInfo({
+    //           success: res => {
+    //             console.log(res)
+    //             if (res.errMsg == "getUserInfo:ok") {
+    //               wx.setStorage({
+    //                 key: 'userInfo',
+    //                 data: res.userInfo,
+    //               })
+    //             }
+    //           },
+    //           fail() {
+    //             console.log('user unlogin')
+    //           }
+    //         })
     //       }
-    //     })
+    //     }
+    //   },
+    //   fail() {
+    //     console.log('456')
     //   }
+
     // })
 
 

@@ -8,7 +8,7 @@ exports.main = async(event, content) => {
 
   const jsCode = event.code
 
-  return request(`https://api.weixin.qq.com/sns/jscode2session?appid=${appID}&secret=${appSecret}&js_code=${jsCode}&grant_type=${grantType}`, {
+  return await request(`https://api.weixin.qq.com/sns/jscode2session?appid=${appID}&secret=${appSecret}&js_code=${jsCode}&grant_type=${grantType}`, {
     json: true
   }).catch((err) => {
     console.log(err)

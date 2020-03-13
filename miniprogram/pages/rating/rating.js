@@ -16,16 +16,19 @@ Page({
     selectedSrc: '/images/icon/star-full.png',
     halfSrc: '/images/icon/star-half.png',
     rating: 0,
-    scoreTitle: ''
+    scoreTitle: '',
+    isRating: ''
+
   },
 
   tapLeftStar(e) {
+
     let score = e.currentTarget.dataset.score
 
     if (this.data.rating == 0.5 && e.currentTarget.dataset.score == 0.5) {
       score = 0.5
     }
-    // let scoreTitle = switchDescript(score)
+
     this.setData({
       rating: score,
       scoreTitle: this.switchDescript(score)
@@ -65,64 +68,114 @@ Page({
     })
   },
   submitScore(e) {
-    console.log()
-    let scoreDetail = e.currentTarget.dataset
-    console.log(scoreDetail.score)
-    if (scoreDetail.score != "0分") {
-      // console.log('1')
-      wx.cloud.callFunction({
-        name: 'JDBC',
-        data: {
-          table: 'user_comment',
-          type: 'add',
-          data: {
-            id: this.data.movieId,
-            title: this.data.title,
-            date: utils.formatTime(new Date()),
-            _openid: this.data.openid,
-            rating: this.data.rating,
-            scoreTitle: this.data.scoreTitle,
-            commtent_content: this.data.content,
-            has_rating: true
-          },
-          success: (res) => {
-            console.log(res)
-          }
-        }
-      })
-      wx.showToast({
-        title: '添加评分成功',
-        icon: 'none'
-      })
-      setTimeout(function() {
-        let pages = getCurrentPages()
-        let prevPages = pages[pages.length - 2]
-        prevPages.setData({
-          score: scoreDetail,
-          has_rating: true
-        })
-        wx.navigateBack({
-          delta: 1
-        })
-      }, 2000)
 
-    }else{
-      wx.showToast({
-        title: '请选择评分后提交',
-        icon:'none'
-      })
+    let scoreDetail = e.currentTarget.dataset
+
+
+    if (this.data.isRating) {
+ 
+      this.updateComt(scoreDetail)
+    } else {
+
+      this.addComt(scoreDetail)
     }
 
+
+
+    // } else {
+    //   wx.showToast({
+    //     title: '请选择评分后提交',
+    //     icon: 'none'
+    //   })
+    // }
+
+  },
+
+  addComt(scoreDetail) {
+    wx.cloud.callFunction({
+      name: 'JDBC',
+      data: {
+        table: 'user_comment',
+        type: 'add',
+        data: {
+          _id: this.data.movieId + this.data.openid,
+          title: this.data.title,
+          date: utils.formatTime(new Date()),
+          _openid: this.data.openid,
+          rating: this.data.rating,
+          scoreTitle: this.data.scoreTitle,
+          commtent_content: this.data.content,
+          has_rating: true
+        }
+
+      }
+    }).then(res => {
+
+      console.log(res)
+ 
+    })
+    wx.showToast({
+      title: '添加评分成功',
+      icon: 'none'
+    })
+    setTimeout(function() {
+      let pages = getCurrentPages()
+      let prevPages = pages[pages.length - 2]
+      prevPages.setData({
+        score: scoreDetail,
+        has_rating: true
+      })
+      wx.navigateBack({
+        delta: 1
+      })
+    }, 2000)
+  },
+
+  updateComt(scoreDetail) {
+    console.log(this.data.movieId + this.data.openid)
+    wx.cloud.callFunction({
+      name: 'JDBC',
+      data: {
+        table: 'user_comment',
+        type: 'update',
+        indexKey: this.data.movieId + this.data.openid,
+        data: {
+          rating: this.data.rating,
+          scoreTitle: this.data.scoreTitle
+        }
+      }
+    }).then(res => {
+
+      if (res.result.stats.updated > 0) {
+        console.log('已更新')
+      }
+    })
+    wx.showToast({
+      title: '添加评分成功',
+      icon: 'none'
+    })
+    setTimeout(function() {
+      let pages = getCurrentPages()
+      let prevPages = pages[pages.length - 2]
+      prevPages.setData({
+        score: scoreDetail,
+        has_rating: true
+      })
+      wx.navigateBack({
+        delta: 1
+      })
+    }, 2000)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
+
     this.setData({
       movieId: options.id,
       title: options.title,
-      openid: options.openid
+      openid: options.openid,
+      isRating: JSON.parse(options.isRating)
     })
 
   },

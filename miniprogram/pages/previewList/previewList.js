@@ -15,15 +15,13 @@ Page({
       title: '加载中',
     })
     wx.cloud.callFunction({
-      // name: 'getMovieInfo',
-      name: 'API',
+      name:'API',
       data: {
         type: 'getMovieInfo',
         id: num
       }
     }).then(res => {
       var resl = res.result
-      // console.log(resl)
       wx.setNavigationBarTitle({
         title: resl.trailers[0].title,
       })
@@ -33,7 +31,7 @@ Page({
         title: resl.trailers[0].title,
         videosrc: resl.trailers[0].resource_url
       })
-      console.log(this.data.movieInfo)
+
       wx.hideLoading()
     }).catch(err => {
       console.log(err)
@@ -42,8 +40,7 @@ Page({
     })
   },
   selected(event) {
-    console.log(event)
-    // console.log(event.currentTarget.dataset.index)
+ 
     let index = event.currentTarget.dataset.index
     this.setData({
       selectIndex: index,

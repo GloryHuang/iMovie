@@ -38,8 +38,6 @@ page {
 .videosList {
   width: 100%;
   margin-top: 10rpx;
-  /* position: absolute;
-  top: 225px; */
   background-color: #fff;
 }
 
@@ -51,7 +49,6 @@ page {
 
 .scroll_item {
   padding: 20rpx 5rpx;
-  /* height: 100px; */
   display: flex;
   border-top: 1rpx solid #ccc;
 }
@@ -65,9 +62,6 @@ page {
 
 .scroll_item.video {
   position: relative;
-  /* height: 100px;
-  width: 160px; *//* width: 120px;
-  height: 75px; */
   width: 140px;
   height: 78px;
   overflow: hidden;
@@ -86,7 +80,6 @@ page {
 .scroll_item.video image {
   width: 34px;
   height: 34px;
-  /* display: inline-block; */
   transform: translate(-50%, -50%);
 }
 

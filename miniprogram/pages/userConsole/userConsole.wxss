@@ -3,15 +3,19 @@ page {
   /* background: #f4f4f4; */
 }
 
-.userInfo {
+.warp {
   width: 750rpx;
   display: flex;
-  height: 300rpx;
+  /* height: 300rpx; */
+  height: 420rpx;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  background-color:#F5DEB3;
+  background-color: #f5deb3;
+}
+
+.userInfo {
 }
 
 .userInfo .user_image {
@@ -23,6 +27,20 @@ page {
 
 .userInfo .user_name {
   margin-top: 15rpx;
+  margin-left: 10rpx;
+}
+
+.warp .login {
+  width: 340rpx;
+  border-radius: 100rpx;
+  border: 1rpx solid #fff;
+  background-color: #fff;
+  color: #1a4b22;
+}
+
+
+.warp button::after {
+  content: none;
 }
 
 .menuList {
@@ -47,6 +65,21 @@ page {
 .menuList .menuItem  image {
   width: 25rpx;
   height: 25rpx;
+}
+
+.contactBtn {
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 1em;
+  position: static;
+  line-height: normal;
+}
+
+.contactBtn::after {
+  content: none;
 }
 
 .myCollect {

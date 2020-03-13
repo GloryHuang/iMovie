@@ -1,29 +1,44 @@
+<import src="../../template/list-item/list-item" />
+
 <view>
-  <view class="userInfo">
-    <view class="user_image">
-      <open-data type="userAvatarUrl"></open-data>
+  <view class="warp">
+    <view class="userInfo" wx:if="{{isAuthorize}}">
+      <view class="user_image">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class="user_name">
+        <open-data type="userNickName"></open-data>
+      </view>
     </view>
-    <view class="user_name">
-      <open-data type="userNickName"></open-data>
+    <view wx:else>
+      <button class="login" wx:if="{{canIUse}}" hover-class="none" bindgetuserinfo="login" open-type='getUserInfo' data-url="userConsole">登录</button>
+      <view wx:else>请升级微信版本</view>
+
     </view>
   </view>
 
-
-  <!-- 需要使用 button 来授权登录
-  <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+  <!-- 需要使用 button 来授权登录 -->
+  <!-- <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
   <view wx:else>请升级微信版本</view> -->
 
   <view class="menuList">
-    <view class="myCollect">
+    <view class="myCollect" wx:for="{{firstMenu}}" wx:key="id">
 
-      <navigator url="/pages/myCollect/myCollect" hover-class="none" class="menuItem " wx:for="{{firstMenu}}" wx:key="id">
-        <text>{{item.title}}</text>
-        <image src="../../images/expand.png"></image>
-      </navigator>
+      <button bindgetuserinfo="login" open-type='getUserInfo' class="contactBtn" hover-class="none" data-url="myCollect">
+        <view url="/pages/myCollect/myCollect" hover-class="none" class="menuItem ">
+          <text>{{item.title}}</text>
+          <image src="../../images/expand.png"></image>
+        </view>
+      </button>
     </view>
-    <view class="menuItem" wx:for="{{secondMenu}}" wx:key="id">
-      <text>{{item}}</text>
-      <image src="../../images/expand.png"></image>
+    <view class="item-list">
+      <button open-type="share" class="contactBtn" hover-class="none" bindgetuserinfo="login">
+        <template is="list-item" data="{{title:'分享给朋友'}}" />
+      </button>
+
+      <template is="list-item" data="{{title:'联系我们'}}" />
+      <template is="list-item" data="{{title:'反馈'}}" />
+      <template is="list-item" data="{{title:'关于'}}" />
     </view>
   </view>
 </view>
