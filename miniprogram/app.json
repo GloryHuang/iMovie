@@ -7,7 +7,6 @@
     "components/comments/comments",
     "components/preview/preview",
     "pages/commentsList/commentsList",
-    "pages/previewList/previewList",
     "pages/photosList/photosList",
     "pages/myCollect/myCollect",
     "pages/rating/rating"

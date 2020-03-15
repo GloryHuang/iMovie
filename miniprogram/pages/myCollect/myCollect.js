@@ -34,15 +34,16 @@ Page({
       var isShow
       if (res.result.data.length != 0) {
         isShow = true
+        this.setData({
+          collectList: res.result.data,
+          isShow: isShow
+        })
       } else {
         isShow = false
       }
 
 
-      this.setData({
-        collectList: res.result.data,
-        isShow: isShow
-      })
+
       wx.stopPullDownRefresh()
     })
 

@@ -25,7 +25,7 @@
     <view class="myCollect" wx:for="{{firstMenu}}" wx:key="id">
 
       <button bindgetuserinfo="login" open-type='getUserInfo' class="contactBtn" hover-class="none" data-url="myCollect">
-        <view url="/pages/myCollect/myCollect" hover-class="none" class="menuItem ">
+        <view  class="menuItem ">
           <text>{{item.title}}</text>
           <image src="../../images/expand.png"></image>
         </view>

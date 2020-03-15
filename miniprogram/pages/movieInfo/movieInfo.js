@@ -248,6 +248,7 @@ Page({
           data: {
             _openid: app.globalData.openId,
             _id: movie.id + app.globalData.openId,
+            id: movie.id,
             title: movie.title,
             casts: movie.casts,
             genres: movie.genres,
